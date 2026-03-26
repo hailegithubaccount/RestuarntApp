@@ -1,7 +1,7 @@
 import { useQuery, UseQueryOptions, QueryKey } from '@tanstack/react-query';
 import { AxiosRequestConfig } from 'axios';
-import apiClient from '../../api/config/apiClient';
-import { ApiQueryOptions } from '../../api/types/auth';
+import apiClient from '../../Api/config/apiClient';
+import { ApiQueryOptions } from '../../Api/types/auth';
 
 /**
  * Generic TanStack Query hook for GET requests.

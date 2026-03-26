@@ -8,13 +8,13 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 // import { ToastProvider } from 'react-native-toast-notifications';
-import AppNavigator from './src/Naviagtor/AppNavigator';
+import AppNavigator from './Src/Naviagtor/AppNavigator';
 // import CustomToast, { ToastType } from './src/components/atoms/CustomToast';
-import { rootNavigationRef } from './src/Naviagtor/rootNavigation';
+import { rootNavigationRef } from './Src/Naviagtor/rootNavigation';
 
-import './src/helper/sheets';
+// import './src/helper/sheets';
 // import { CustomThemeProvider } from './src/provider/themeProvider';
-import { QueryProvider } from './src/provider/QueryProvider';
+import { QueryProvider } from './Src/provider/QueryProvider';
 
 const AppContent = () => {
   const insets = useSafeAreaInsets();

@@ -1,6 +1,6 @@
 import { useApiQuery } from './queries/useApiQuery';
 import { useApiMutation } from './queries/useApiMutation';
-import { ENDPOINTS } from '../api/config/endPoint';
+import { ENDPOINTS } from '../Api/config/endPoint';
 
 export function useGetCoffee(category?: string, options?: any) {
   const url = category && category !== 'All' ? ENDPOINTS.coffees.base : ENDPOINTS.coffees.all;

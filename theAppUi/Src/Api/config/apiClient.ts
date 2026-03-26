@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setupInterceptors } from '../../api/interceptors';
+import { setupInterceptors } from '../../Api/interceptors';
 import { DEV_BASE_URL } from './endPoint';
 
 const apiClient = axios.create({

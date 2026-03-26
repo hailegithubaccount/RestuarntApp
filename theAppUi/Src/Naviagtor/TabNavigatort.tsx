@@ -24,7 +24,7 @@ const TabBarIcon: React.FC<ItabBar> = ({ icon, size }) => {
 };
 
 function BottomNavigator() {
-  const insets = useSafeAreaInsets();
+  // const insets = useSafeAreaInsets();
 
   // const {translation} = useTranslationStore(({translation}) => ({translation}));
 
@@ -72,11 +72,11 @@ function BottomNavigator() {
         },
         headerShown: false,
         tabBarStyle: {
-          height: (Platform.OS === 'ios' ? 80 : 65) + insets.bottom,
+          height: (Platform.OS === 'ios' ? 80 : 65) ,
           backgroundColor: '#252A32',
 
           borderTopWidth: 0,
-          paddingBottom: (Platform.OS === 'ios' ? 12 : 5) + insets.bottom,
+          paddingBottom: (Platform.OS === 'ios' ? 12 : 5) 
         },
         tabBarHideOnKeyboard: true,
       })}>

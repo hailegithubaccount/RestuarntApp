@@ -1,6 +1,6 @@
 import { useApiMutation } from './queries/useApiMutation';
 import { useApiQuery } from './queries/useApiQuery';
-import { ENDPOINTS } from '../api/config/endPoint';
+import { ENDPOINTS } from '../Api/config/endPoint';
 
 export function useLogin(options?: any) {
   return useApiMutation(ENDPOINTS.auth.login, 'post', [], options);

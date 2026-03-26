@@ -22,6 +22,7 @@ export const ENDPOINTS = {
     resend_otp: `/auth/resend-otp`,
   },
   tables: {
+    base: `${TABLES_PREFIX}`,
     byQr: `${TABLES_PREFIX}/by-qr`,
   },
   coffees: {

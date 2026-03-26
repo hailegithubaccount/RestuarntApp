@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient, QueryKey } from '@tanstack/react-query';
 import { ApiMutationOptions } from '../../api/types/auth';
-import apiClient from '../../api/config/apiClient';
+import apiClient from '../../Api/config/apiClient';
 
 /**
  * Generic TanStack Query mutation hook for POST/PUT/DELETE requests.
