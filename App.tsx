@@ -1,45 +1,56 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
+import { Platform, View } from 'react-native';
+// import { SheetProvider } from 'react-native-actions-sheet';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+// import { ToastProvider } from 'react-native-toast-notifications';
+import AppNavigator from './src/Naviagtor/AppNavigator';
+// import CustomToast, { ToastType } from './src/components/atoms/CustomToast';
+import { rootNavigationRef } from './src/Naviagtor/rootNavigation';
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+import './src/helper/sheets';
+// import { CustomThemeProvider } from './src/provider/themeProvider';
+import { QueryProvider } from './src/provider/QueryProvider';
+
+const AppContent = () => {
+  const insets = useSafeAreaInsets();
+
+  // const androidExtraPadding =
+  //   Platform.OS === 'android' && Platform.Version > 29 ? 0 : 0;
 
   return (
+    <View
+      style={{
+        flex: 1,
+        paddingBottom: Platform.OS === 'ios' ? 0 : insets.bottom,
+      }}
+    >
+      <GestureHandlerRootView style={{ flex: 1 }}>
+   
+          <QueryProvider>
+          
+              <NavigationContainer ref={rootNavigationRef}>
+                <AppNavigator />
+              </NavigationContainer>
+          
+          </QueryProvider>
+      
+     
+      </GestureHandlerRootView>
+    </View>
+  );
+};
+
+const App = () => {
+  return (
     <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <AppContent />
     </SafeAreaProvider>
   );
-}
-
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+};
 
 export default App;

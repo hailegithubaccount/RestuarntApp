@@ -1,0 +1,187 @@
+import {
+  ActivityIndicator,
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Login$ } from '../Api/Auth/login/index';
+import { useRequest } from '../Hooks/useRquest';
+import { useUserStore } from '../store/userStore';
+import * as Yup from 'yup';
+import Colors from '../Constant/Color';
+import Button from '../Components/Button';
+import CustomTextInput from '../Components/TextInput';
+
+const Login = ({ navigation }: any) => {
+  const [Email, setEmail] = useState('');
+  const [Password, setPassword] = useState('');
+
+  // const {setUser} = useUserStore(({setUser}) => ({setUser}));
+
+  const setUser = useUserStore(state => state.setUser);
+
+  const loginReq = useRequest();
+
+  const validationSchema = Yup.object().shape({
+    Email: Yup.string().required('Email is required'),
+    Password: Yup.string().required('Password is required'),
+  });
+
+  const loginRes = async () => {
+    try {
+      await validationSchema.validate(
+        { Email, Password },
+        { abortEarly: false },
+      );
+
+      const data = {
+        email: Email.toLowerCase(),
+        password: Password.toLowerCase(),
+      };
+
+      await loginReq.doRequest(Login$(data));
+    } catch (err: any) {
+      if (err.inner) {
+        const messages = err.inner.map((e: any) => e.message).join('\n');
+        Alert.alert('Validation Error', messages);
+      } else {
+        console.error(err);
+        Alert.alert('Error', 'Something went wrong');
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (loginReq.isSuccess) {
+      Alert.alert('if login is successful this one is displayed');
+      console.log(loginReq?.response);
+      console.log(loginReq.response?.user);
+      setUser(loginReq.response?.user);
+      navigation.navigate('Profile');
+    }
+  }, [loginReq.isSuccess]);
+
+  return (
+    <View style={styles.container}>
+      <View>
+        <Image
+          source={require('../Assets/Images/Group33.png')}
+          style={styles.LogoImage}
+        />
+      </View>
+
+      <Text style={styles.title}>Login</Text>
+
+
+      <View  style={{
+        borderWidth:1,
+        borderColor:Colors.seventh,
+        borderRadius:20,
+        padding:2,
+        margin:3
+
+      }}>
+        <CustomTextInput
+        placeholder='Email'
+        placeholderTextColor={'white'}
+        value={Email}
+        onChangeText={setEmail}
+        />
+
+      </View>
+
+      <View style={{
+        borderWidth:1,
+        borderColor:Colors.seventh,
+        borderRadius:20,
+        padding:2,
+        margin:3
+
+      }}>
+        
+
+
+
+
+
+
+        <CustomTextInput
+        placeholder='password'
+        placeholderTextColor={Colors.seventh}
+        value={Password}
+        onChangeText={setPassword}
+        />
+
+
+
+      </View>
+
+
+
+
+
+      
+      <View
+        style={{
+          marginTop: '10%',
+        }}
+      >
+        {loginReq.isLoading ? (
+          <ActivityIndicator
+            size="large"
+            color={Colors.secondary}
+            style={{ marginVertical: 20 }}
+          />
+        ) : (
+          // <TouchableOpacity style={styles.button} onPress={loginRes}>
+          //   <Text style={styles.buttonText}>Login</Text>
+          // </TouchableOpacity>
+
+          <Button title="Login" onPress={loginRes} />
+        )}
+
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+          <Text style={styles.link}>Don't have an account? Register</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+export default Login;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 20,
+    backgroundColor: Colors.thrid,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
+    color: Colors.secondary,
+  },
+  
+  button: {
+    backgroundColor: Colors.secondary,
+    padding: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  buttonText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+  link: { marginTop: 15, textAlign: 'center', color: '#007BFF' },
+  LogoImage: {
+    width: 150,
+    height: 150,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+  },
+});
