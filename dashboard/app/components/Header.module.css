@@ -1,0 +1,108 @@
+.header {
+  height: 80px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(8px);
+  z-index: 90;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  background: var(--card-bg);
+  padding: 0.625rem 1rem;
+  border-radius: 0.75rem;
+  width: 400px;
+  border: 1px solid var(--border);
+}
+
+.searchIcon {
+  color: var(--text-muted);
+  margin-right: 0.75rem;
+}
+
+.searchBar input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  width: 100%;
+  font-size: 0.875rem;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.iconBtn {
+  position: relative;
+  color: var(--text-muted);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+
+.iconBtn:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+  border: 2px solid var(--card-bg);
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.25rem;
+  border-radius: 0.75rem;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.name {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.role {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: var(--primary);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}

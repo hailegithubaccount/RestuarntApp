@@ -1,0 +1,202 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.header {
+  margin-bottom: 0.5rem;
+}
+
+.titleInfo h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.titleInfo p {
+  color: var(--text-muted);
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 1.5rem;
+}
+
+.fullWidth {
+  grid-column: span 2;
+}
+
+.section {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 1.5rem;
+  border: 1px solid var(--border);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.sectionHeader h2 {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.icon {
+  color: var(--primary);
+}
+
+/* Bar Chart */
+.barChart {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.barRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.barLabel {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+}
+
+.itemName {
+  font-weight: 600;
+}
+
+.itemValue {
+  color: var(--text-muted);
+}
+
+.barWrapper {
+  height: 32px;
+  background: var(--background);
+  border-radius: 2rem;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--primary-hover));
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 1rem;
+  min-width: 40px;
+  transition: width 1s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
+.barRevenue {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+  white-space: nowrap;
+}
+
+/* Status Breakdown */
+.statusGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.statusCard {
+  background: var(--background);
+  padding: 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.statusName {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.statusCount {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.statusProgress {
+  height: 6px;
+  background: var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.statusFill {
+  height: 100%;
+  border-radius: 1rem;
+  transition: width 0.8s ease-out;
+}
+
+/* Revenue Hero */
+.revenueHero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.heroLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.heroValue {
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+}
+
+.heroSubtext {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--success);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  background: rgba(74, 222, 128, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  width: fit-content;
+}
+
+.heroVisual {
+  color: var(--primary);
+  opacity: 0.15;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  color: var(--text-muted);
+}

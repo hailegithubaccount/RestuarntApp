@@ -1,0 +1,254 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titleInfo h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.titleInfo p {
+  color: var(--text-muted);
+}
+
+.addBtn {
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+}
+
+.addBtn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+.tableGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.tableCard {
+  background: var(--card-bg);
+  border-radius: 1.25rem;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.tableCard:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+}
+
+.qrWrapper {
+  position: relative;
+  aspect-ratio: 1;
+  padding: 2rem;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qrImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.qrOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.qrWrapper:hover .qrOverlay {
+  opacity: 1;
+}
+
+.downloadBtn {
+  background: white;
+  color: #1a1a1a;
+  padding: 0.625rem 1.25rem;
+  border-radius: 2rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+}
+
+.downloadBtn:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.cardContent {
+  padding: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card-bg);
+}
+
+.tableInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.iconBox {
+  width: 44px;
+  height: 44px;
+  background: rgba(209, 120, 66, 0.1);
+  color: var(--primary);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.textDetails h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.125rem;
+}
+
+.textDetails p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.deleteBtn {
+  color: var(--text-muted);
+  transition: color 0.2s;
+  padding: 0.5rem;
+}
+
+.deleteBtn:hover {
+  color: var(--danger);
+}
+
+/* Form Styles */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.formGroup label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.inputIcon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon svg {
+  position: absolute;
+  left: 1rem;
+  color: var(--text-muted);
+}
+
+.inputIcon input {
+  width: 100%;
+  background: var(--background);
+  border: 1px solid var(--border);
+  padding: 0.875rem 1rem 0.875rem 3rem;
+  border-radius: 0.75rem;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.inputIcon input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(209, 120, 66, 0.1);
+}
+
+.hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cancelBtn {
+  padding: 0.75rem 1.5rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.submitBtn {
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loading, .empty {
+  text-align: center;
+  padding: 4rem;
+  color: var(--text-muted);
+}

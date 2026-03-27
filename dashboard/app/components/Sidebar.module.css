@@ -1,0 +1,73 @@
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  background: var(--card-bg);
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  border-right: 1px solid var(--border);
+  z-index: 100;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+  padding: 0 0.5rem;
+}
+
+.logo span {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--primary);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-radius: 0.75rem;
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.navItem:hover {
+  background: rgba(209, 120, 66, 0.1);
+  color: var(--primary);
+}
+
+.active {
+  background: var(--primary);
+  color: white !important;
+}
+
+.logout {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-radius: 0.75rem;
+  color: var(--danger);
+  margin-top: auto;
+  transition: background 0.2s;
+  width: 100%;
+  text-align: left;
+}
+
+.logout:hover {
+  background: rgba(248, 113, 113, 0.1);
+}

@@ -1,0 +1,48 @@
+:root {
+  --background: #0C0F14;
+  --foreground: #ffffff;
+  --card-bg: #252A32;
+  --primary: #D17842;
+  --primary-hover: #E88B54;
+  --secondary: #52555A;
+  --text-muted: #AEB2B7;
+  --border: #2E333E;
+  --success: #4ADE80;
+  --danger: #F87171;
+  --warning: #FBBF24;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  color: inherit;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0C0F14;
+    --foreground: #ffffff;
+  }
+}
