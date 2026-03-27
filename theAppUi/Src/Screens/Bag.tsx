@@ -53,14 +53,15 @@ const Bag = ({ route }) => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.SafeArea} edges={['top', 'left', 'right']}>
-        <View style={styles.header}>
-          <Image source={Assets.FourIcons} style={styles.icon} />
-          <Text style={styles.tableText}>Table {tableNumber}</Text>
-        </View>
-      </SafeAreaView>
+      <View style={styles.headerRow}>
+              <Image source={Assets.FourIcons} style={styles.headerIcon} />
+              <Text style={styles.tableText}>Table {tableNumber}</Text>
+            </View>
+   
 
       {item ? (
-        <View style={styles.body}>
+        <View style={[styles.body, { justifyContent: 'space-between', paddingVertical: 20 }]}>
+          <View>
           <View
             style={{
               flexDirection: 'row',
@@ -178,13 +179,14 @@ const Bag = ({ route }) => {
               </View>
             </View>
           </View>
+          </View>
 
           <View
             style={{
-              top: '65%',
               flexDirection: 'row',
               justifyContent: 'space-between',
               marginHorizontal: '4%',
+              marginBottom: 40,
             }}
           >
             <View
@@ -252,7 +254,9 @@ const Bag = ({ route }) => {
           </Text>
         </View>
       )}
+      </SafeAreaView>
     </View>
+    
   );
 };
 
@@ -263,10 +267,19 @@ const styles = StyleSheet.create({
     flex: 1,
 
     backgroundColor: '#0C0F14',
-    paddingTop: '10%',
+  
   },
   SafeArea: {
-    paddingHorizontal: '5%',
+  
+      paddingHorizontal: 12,
+  },
+    headerIcon: { width: 45, height: 45 },
+
+
+   headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
   },
   header: {
     flexDirection: 'row',
@@ -279,12 +292,13 @@ const styles = StyleSheet.create({
     height: 50,
   },
   tableText: {
-    fontSize: 24,
+    fontSize: 22,
     color: 'orange',
+    alignSelf:'center'
   },
   body: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: '#0C0F14',
   },
 });
 

@@ -10,14 +10,15 @@ export default function Dashboard() {
     <View style={{
       justifyContent: 'center',
       alignItems: 'center',
-      flex: 1 
+      flex: 1,
+      backgroundColor: '#0C0F14'
     }}>
       {user ? (
         <>
-          <Text style={{ fontSize: 20, marginBottom: 10 }}>
+          <Text style={{ fontSize: 20, marginBottom: 10, color: 'white' }}>
             Welcome {user.username || user.name || 'User'}
           </Text>
-          <Text style={{ fontSize: 16, marginBottom: 20 }}>
+          <Text style={{ fontSize: 16, marginBottom: 20, color: 'white' }}>
             Role: {user.email || 'N/A'}
           </Text>
           <Button title="Logout" onPress={logout} />

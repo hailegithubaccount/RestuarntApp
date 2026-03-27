@@ -51,7 +51,7 @@ const Home = ({ navigation }) => {
   );
 
   return (
-    <SafeAreaView style={styles.safe}>
+    <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
       <StatusBar barStyle="light-content" />
 
       {/* Header */}
@@ -108,7 +108,7 @@ const Home = ({ navigation }) => {
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           columnWrapperStyle={{ justifyContent: 'space-between' }}
-          contentContainerStyle={{ paddingBottom: 50 }}
+          contentContainerStyle={{ paddingBottom: 20 }}
           ListEmptyComponent={() => (
             <Text style={styles.empty}>No Coffee Found</Text>
           )}
