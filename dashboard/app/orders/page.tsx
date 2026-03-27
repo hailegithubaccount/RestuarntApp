@@ -6,7 +6,7 @@ import { ENDPOINTS } from '../lib/endpoints';
 import { Search, Filter, Clock, CheckCircle2, Package, PlayCircle, MoreVertical } from 'lucide-react';
 import styles from './orders.module.css';
 
-const STATUS_OPTIONS = ['All', 'Pending', 'Preparing', 'Ready', 'Completed', 'Paid'];
+const STATUS_OPTIONS = ['All', 'Preparing', 'Ready', 'Completed', 'Paid'];
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState<any[]>([]);
@@ -99,7 +99,12 @@ export default function OrdersPage() {
                     {order.status}
                   </span>
                 </div>
-
+                {order.userEmail && (
+                  <div className={styles.customerEmail}>
+                    <span>Customer: {order.userEmail}</span>
+                  </div>
+                )}
+                
                 <div className={styles.items}>
                   {order.items.map((item: any, idx: number) => (
                     <div key={idx} className={styles.item}>
@@ -117,15 +122,6 @@ export default function OrdersPage() {
                   </div>
                   
                   <div className={styles.actions}>
-                    {order.status === 'Pending' && (
-                      <button 
-                        className={styles.actionBtn}
-                        onClick={() => updateStatus(order._id, 'Preparing')}
-                      >
-                        <PlayCircle size={16} />
-                        Start Preparing
-                      </button>
-                    )}
                     {order.status === 'Preparing' && (
                       <button 
                         className={styles.actionBtn}

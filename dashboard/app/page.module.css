@@ -122,6 +122,61 @@
   color: var(--primary);
 }
 
+.customerInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.buyerName {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.buyerEmail {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.itemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.itemDetail {
+  display: flex;
+  flex-direction: column;
+}
+.itemName {
+  font-weight: 600;
+  color: var(--foreground);
+}
+.itemMeta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.time {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.timeWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+}
+.verifyBtn {
+  background: var(--primary);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.verifyBtn:hover {
+  opacity: 0.8;
+}
 .status {
   padding: 0.25rem 0.75rem;
   border-radius: 2rem;

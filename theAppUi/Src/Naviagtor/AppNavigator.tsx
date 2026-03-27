@@ -1,6 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "../Screens/Login";   
+import Scanner from "../Screens/Scanner";
 import Register from "../Screens/Register";
 import Fetch from "../Screens/fetch";
 import Profile from "../Screens/profile"
@@ -13,26 +14,42 @@ import QuantityPage from "../Screens/QuantityPage";
 
 
 export type RootStackParamList = {
-  Login: undefined;
+  Scanner: undefined;
+  Login: { fromScreen?: string } | undefined;
   Register: undefined;
-  Fetch:undefined;
-  Profile:undefined;
-  Delete:undefined;
-  TabNavigatort:undefined
-  Bag:undefined
-  favourite :undefined
-  Cart:undefined
-  QuantityPage :undefined
+  Fetch: undefined;
+  Profile: undefined;
+  Delete: undefined;
+  TabNavigatort: { screen?: string } | undefined;
+  Bag: undefined;
+  favourite: undefined;
+  Cart: undefined;
+  QuantityPage: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const AppNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="Login"> 
+    <Stack.Navigator initialRouteName="Scanner"> 
+       <Stack.Screen  
+        name="Scanner" 
+        component={Scanner} 
+        options={{ headerShown: false }} 
+      />
        <Stack.Screen  
         name="Login" 
         component={Login} 
+        options={{ headerShown: false }} 
+      />
+       <Stack.Screen  
+        name="Register" 
+        component={Register} 
+        options={{ headerShown: false }} 
+      />
+       <Stack.Screen  
+        name="Profile" 
+        component={Profile} 
         options={{ headerShown: false }} 
       />
        <Stack.Screen 

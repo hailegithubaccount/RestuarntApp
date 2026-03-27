@@ -1,242 +1,209 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
-  Text,
-  View,
   StyleSheet,
+  Text,
+  TextInput,
+  View,
   TouchableOpacity,
   Alert,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
-import {
-  Camera,
-  useCameraDevices,
-  useCodeScanner,
-  CodeScanner,
-  getCameraDevice,
-} from 'react-native-vision-camera';
-import { useNavigation } from '@react-navigation/native';
-import { useGetTable } from '../Hooks/table';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useTableNumberStore } from '../store/TableNumberStore';
+import { useLogin } from '../Hooks/auth';
+import { useUserStore } from '../store/userStore';
+import { useTranslationStore } from '../store/translationStore';
 
-const TableQrScanner: React.FC = () => {
-  const navigation = useNavigation();
+const Login = ({ navigation, route }: any) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const setUser = useUserStore(state => state.setUser);
+  const translation = useTranslationStore(state => state.translation);
 
-  const [hasPermission, setHasPermission] = useState<boolean>(false);
-  const [isScanning, setIsScanning] = useState<boolean>(true);
-  const [flash, setFlash] = useState<'off' | 'on'>('off');
+  const fromScreen = route.params?.fromScreen || 'TabNavigatort';
 
-  const setTableNumber = useTableNumberStore(
-    state => state.setTableNumber,
-  );
 
-  const [targetTable, setTargetTable] = useState<string | null>(null);
 
-  const { data: tableResponse, isFetching, error: tableError } = useGetTable(targetTable || '', !!targetTable && isScanning === false);
+  const login = useLogin();
 
-  useEffect(() => {
-    if (tableResponse) {
-      console.log('Table response:', tableResponse);
-      const tableNumber = tableResponse?.tableNumber;
 
-      if (tableNumber) {
-        setTableNumber(tableNumber);
-        navigation.navigate('TabNavigatort', {
-          screen: 'Home',
-        });
-      } else {
-        Alert.alert('Error', 'Table number missing');
-        setIsScanning(true);
-        setTargetTable(null);
-      }
+  const handleLogin = () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'Please fill in all fields');
+      return;
     }
-  }, [tableResponse]);
 
-  useEffect(() => {
-    if (tableError) {
-      console.error(tableError);
-      const message = (tableError as any)?.error?.message || 'Invalid QR code';
-      Alert.alert('Error', message);
-      setIsScanning(true);
-      setTargetTable(null);
-    }
-  }, [tableError]);
-
-  const devices = useCameraDevices();
-  const device = getCameraDevice(devices, 'back');
-
-  // ✅ Request camera permission
-  useEffect(() => {
-    const getPermissions = async () => {
-      const cameraPermission = await Camera.requestCameraPermission();
-      setHasPermission(cameraPermission === 'granted');
+    const payload = {
+      email: email.trim().toLowerCase(),
+      password,
     };
-    getPermissions();
-  }, []);
 
-  // ✅ QR Scanner Logic (UPDATED)
-  const codeScanner: CodeScanner = useCodeScanner({
-    codeTypes: ['qr'],
-    onCodeScanned: async codes => {
-      if (!isScanning) return; // prevent multiple scans
+    login.mutate(payload, {
+      onSuccess: (data: any) => {
+        setUser(data?.user);
 
-      for (const code of codes) {
-        setIsScanning(false);
+        Alert.alert('Success', 'Login successful');
 
-        try {
-          const data = code.value?.trim();
-          if (!data) throw new Error('Invalid QR');
-
-          const parts = data.split('/');
-          const tableNumber = parts[parts.length - 1];
-
-
-          const payload = {tableNumber :tableNumber}
-          setTargetTable(tableNumber);
-        } catch (error) {
-          console.error(error);
-          Alert.alert('Error', 'Invalid table QR code');
-          setIsScanning(true);
+        if (fromScreen === 'Bag') {
+          navigation.navigate('Bag');
+        } else {
+          navigation.navigate('TabNavigatort', { screen: 'Home' }); 
         }
-      }
-    },
-  });
+      },
 
-  // ✅ UI States
-  if (!device)
-    return <Text style={{ color: 'white' }}>Loading camera...</Text>;
+      onError: (err: any) => {
+        const message =
+          err?.response?.data?.message ||
+          err?.message ||
+          'Invalid email or password';
 
-  if (!hasPermission)
-    return <Text style={{ color: 'white' }}>No camera permission</Text>;
+        Alert.alert('Login Failed', message);
+      },
+    });
+  };
+
+
+
+
+
+
+
+
+
+
+
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Camera
-        style={StyleSheet.absoluteFill}
-        device={device}
-        isActive={true}
-        torch={flash}
-        codeScanner={isScanning ? codeScanner : undefined}
-      />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
+      <View style={styles.formCard}>
+        <Text style={styles.title}>Welcome Back</Text>
+        <Text style={styles.subtitle}>Sign in to continue your coffee experience</Text>
 
-      {/* 🔝 Top */}
-      <View style={styles.topRow}>
-        <TouchableOpacity onPress={() => navigation.goBack()} />
-        <Text style={styles.scanTitle}>SCAN TABLE QR</Text>
-      </View>
+        <TextInput
+          style={styles.input}
+          placeholder="Email Address"
+          placeholderTextColor="#666"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          value={email}
+          onChangeText={setEmail}
+        />
 
-      {/* 🔲 Overlay */}
-      <View style={styles.overlay}>
-        <View style={styles.overlayTop} />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          placeholderTextColor="#666"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
 
-        <View style={styles.row}>
-          <View style={styles.overlaySide} />
 
-          <View style={styles.scanFrame} />
+        {login.isPending ? (
+          <ActivityIndicator size="large" color="orange" style={{ marginVertical: 20 }} />
+        ) : (
+          <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
+            <Text style={styles.loginBtnText}>Login</Text>
+          </TouchableOpacity>
+        )}
 
-          <View style={styles.overlaySide} />
-        </View>
 
-        <View style={styles.overlayBottom} />
-
-        {/* 🔦 Flash Button */}
-        <View style={styles.flashContainer}>
-          <TouchableOpacity
-            style={styles.smallButton}
-            onPress={() =>
-              setFlash(flash === 'off' ? 'on' : 'off')
-            }
-          >
-            <Text style={styles.buttonText}>
-              {flash === 'off' ? 'Light' : 'Light On'}
-            </Text>
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>Don't have an account? </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+            <Text style={styles.link}>Sign Up</Text>
           </TouchableOpacity>
         </View>
+
+        <TouchableOpacity
+          style={styles.skipBtn}
+          onPress={() => navigation.navigate('TabNavigatort', { screen: 'Home' })}
+        >
+          <Text style={styles.skipText}>Skip for now</Text>
+        </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 
-const BOX_SIZE = 260;
+export default Login;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
-  },
-
-  topRow: {
-    position: 'absolute',
-    top: 30,
-    left: 20,
-    right: 20,
-    flexDirection: 'row',
-    gap: 80,
-    alignItems: 'center',
-    zIndex: 10,
-  },
-
-  scanTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-
-  overlay: {
-    flex: 1,
+    backgroundColor: '#0C0F14',
     justifyContent: 'center',
-    alignItems: 'center',
+    padding: 20,
   },
-
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  formCard: {
+    backgroundColor: '#252A32',
+    padding: 30,
+    borderRadius: 25,
+    borderWidth: 1,
+    borderColor: '#333',
   },
-
-  scanFrame: {
-    width: BOX_SIZE,
-    height: BOX_SIZE,
-    borderColor: 'white',
-    borderWidth: 2,
-    borderRadius: 10,
-    backgroundColor: 'transparent',
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: 'orange',
+    textAlign: 'center',
+    marginBottom: 10,
   },
-
-  overlayTop: {
-    flex: 1,
-    width: '100%',
-    backgroundColor: 'rgba(0,0,0,0.6)',
-  },
-
-  overlayBottom: {
-    flex: 1,
-    width: '100%',
-    backgroundColor: 'rgba(0,0,0,0.6)',
-  },
-
-  overlaySide: {
-    width: 100,
-    height: BOX_SIZE,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-  },
-
-  flashContainer: {
-    position: 'absolute',
-    bottom: 50,
-    width: '100%',
-    alignItems: 'center',
-  },
-
-  smallButton: {
-    backgroundColor: 'rgba(255,255,255,0.12)',
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 8,
-  },
-
-  buttonText: {
-    color: '#fff',
+  subtitle: {
     fontSize: 14,
+    color: '#AEB2B7',
+    textAlign: 'center',
+    marginBottom: 30,
   },
+  input: {
+    backgroundColor: '#0C0F14',
+    borderWidth: 1,
+    borderColor: '#333',
+    padding: 15,
+    marginBottom: 15,
+    borderRadius: 12,
+    color: 'white',
+    fontSize: 16,
+  },
+  loginBtn: {
+    backgroundColor: 'orange',
+    padding: 18,
+    borderRadius: 12,
+    marginTop: 10,
+    shadowColor: 'orange',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  loginBtnText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  footerText: {
+    color: '#AEB2B7',
+  },
+  link: {
+    color: 'orange',
+    fontWeight: 'bold',
+  },
+  skipBtn: {
+    marginTop: 30,
+    alignSelf: 'center',
+  },
+  skipText: {
+    color: '#666',
+    fontSize: 14,
+    textDecorationLine: 'underline',
+  }
 });
-
-export default TableQrScanner;
